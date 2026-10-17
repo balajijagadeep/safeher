@@ -1,5 +1,6 @@
 require('dotenv').config();
 const path = require('path');
+const fs = require('fs');
 const http = require('http');
 const express = require('express');
 const { Server } = require('socket.io');
@@ -119,9 +120,24 @@ const PORT = process.env.PORT || 3000;
 async function startServer() {
     try {
         const db = getDatabase();
-        // Check if users exist, if not run auto-seed
-        const count = db.prepare('SELECT COUNT(*) as count FROM users').get();
-        if (count.count === 0) {
+
+        // 1. Ensure tables exist
+        const schemaPath = path.join(__dirname, 'db', 'schema.sql');
+        if (fs.existsSync(schemaPath)) {
+            const schemaSql = fs.readFileSync(schemaPath, 'utf8');
+            db.exec(schemaSql);
+        }
+
+        // 2. Safe check if users exist
+        let userCount = 0;
+        try {
+            const count = db.prepare('SELECT COUNT(*) as count FROM users').get();
+            userCount = count ? count.count : 0;
+        } catch (tableErr) {
+            userCount = 0;
+        }
+
+        if (userCount === 0) {
             console.log('[SafeHer Boot] Database empty. Running initial seed...');
             await seedDatabase();
         }

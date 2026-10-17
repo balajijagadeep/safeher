@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "SafeHer – AI Women Safety & Safe Travel Web Application",
   "main": "server.js",
+  "engines": {
+    "node": ">=22.5.0"
+  },
   "scripts": {
     "start": "node server.js",
+    "build": "node db/seed.js",
     "seed": "node db/seed.js",
     "dev": "node server.js"
   },

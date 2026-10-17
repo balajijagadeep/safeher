@@ -44,6 +44,17 @@ function getDatabase() {
         }
     }
 
+    // Auto-create all tables on fresh cloud deploy (e.g. Render/Railway)
+    try {
+        const schemaPath = path.join(__dirname, 'schema.sql');
+        if (fs.existsSync(schemaPath)) {
+            const schemaSql = fs.readFileSync(schemaPath, 'utf8');
+            dbInstance.exec(schemaSql);
+        }
+    } catch (schemaErr) {
+        console.warn('[SafeHer DB] Schema initialization warning:', schemaErr.message);
+    }
+
     return dbInstance;
 }
 
