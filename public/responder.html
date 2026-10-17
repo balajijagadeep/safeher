@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responder Command Center – SafeHer</title>
+    <link rel="stylesheet" href="/css/theme.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        .command-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 20px;
+            height: calc(100vh - 110px);
+        }
+        #responder-map {
+            width: 100%;
+            height: 100%;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            z-index: 1;
+        }
+        .alerts-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        @media (max-width: 900px) {
+            .command-grid {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            #responder-map {
+                height: 340px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <header class="top-navbar">
+        <div style="display:flex; align-items:center; gap:12px;">
+            <div class="brand-icon" style="background:#dc2626;">🚨</div>
+            <div>
+                <h1 style="font-size:18px; font-weight:700;">Emergency Response Command</h1>
+                <p style="font-size:11px; color:var(--text-muted);">ERSS 112 & Emergency Hospital Dispatch Gateway</p>
+            </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+            <span id="responder-role-badge" class="badge badge-danger">POLICE DISPATCH</span>
+            <span id="responder-name" style="font-size:13px; font-weight:600;">Officer</span>
+            <a href="/app.html" class="btn btn-outline" style="font-size:12px; padding:6px 12px;">User Hub</a>
+            <button onclick="API.logout()" class="btn btn-outline" style="font-size:12px; padding:6px 10px;">Logout</button>
+        </div>
+    </header>
+
+    <div class="container" style="max-width:1400px; padding:20px;">
+        <div class="command-grid">
+            <!-- Map Side -->
+            <div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                    <h3 style="font-size:15px; font-weight:600;">Active Emergency Radar</h3>
+                    <span style="font-size:12px; color:var(--text-muted);">Real-time GPS Tracking</span>
+                </div>
+                <div id="responder-map"></div>
+            </div>
+
+            <!-- Alerts Feed Side -->
+            <div class="alerts-panel">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; border-bottom:1px solid var(--border-color); padding-bottom:10px;">
+                    <h3 style="font-size:15px; font-weight:600;">Active Incidents Queue</h3>
+                    <span class="badge badge-danger"><span id="active-count">0</span> ACTIVE ALERTS</span>
+                </div>
+                <div id="active-alerts-feed" style="flex:1;">
+                    <div style="text-align:center; padding:30px; color:var(--text-muted);">Loading emergency queue...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/socket-client.js"></script>
+    <script src="/js/responder.js"></script>
+</body>
+</html>

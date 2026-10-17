@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Wearable Simulator – SafeHer</title>
+    <link rel="stylesheet" href="/css/theme.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+    <style>
+        .sim-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 24px;
+        }
+        .console-box {
+            background: #0f172a;
+            color: #38bdf8;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 12px;
+            padding: 16px;
+            border-radius: var(--radius-md);
+            height: 380px;
+            overflow-y: auto;
+            border: 1px solid #1e293b;
+        }
+        @media (max-width: 800px) {
+            .sim-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-navbar">
+        <div style="display:flex; align-items:center; gap:12px;">
+            <div class="brand-icon" style="background:#0284c7;">⚡</div>
+            <div>
+                <h1 style="font-size:18px; font-weight:700;">IoT Wearable Device Simulator</h1>
+                <p style="font-size:11px; color:var(--text-muted);">Simulate ESP32 / BLE Jewelry Hardware Signals for Judges</p>
+            </div>
+        </div>
+        <div style="display:flex; gap:10px;">
+            <a href="/app.html" class="btn btn-outline" style="font-size:12px;">User Hub</a>
+            <a href="/responder.html" target="_blank" class="btn btn-primary" style="font-size:12px;">Open Responder Dashboard ↗</a>
+        </div>
+    </header>
+
+    <div class="container" style="max-width:1100px; padding:30px 20px;">
+        <!-- Judge Demo Instructions Banner -->
+        <div style="background:var(--primary-light); border:1px solid #c4b5fd; border-radius:var(--radius-md); padding:18px; margin-bottom:24px;">
+            <h3 style="font-size:16px; color:var(--primary); margin-bottom:6px;">👨‍⚖️ Hackathon Judge Demo Workflow:</h3>
+            <ol style="font-size:13px; color:var(--text-primary); margin-left:20px; line-height:1.6;">
+                <li>Keep this Simulator tab open alongside the <strong>Responder Dashboard</strong> tab.</li>
+                <li>Click <strong>"Simulate Fall Detection Sensor"</strong> below. Notice that the signal is sent autonomously via REST without needing a phone session!</li>
+                <li>Watch the Responder Command Center instantly chime, escalate through contacts/police/hospital, and show the victim on the live map.</li>
+                <li>Click <strong>"Start Live Moving GPS Walker"</strong> to watch the victim's breadcrumbs move in real time.</li>
+            </ol>
+        </div>
+
+        <div class="sim-grid">
+            <!-- Hardware Controls -->
+            <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:24px;">
+                <h3 style="font-size:16px; margin-bottom:16px;">1. Device Configuration</h3>
+
+                <div style="margin-bottom:12px;">
+                    <label style="font-size:12px; font-weight:600; display:block; margin-bottom:4px;">Paired Device ID</label>
+                    <input type="text" id="sim-device-id" value="DEV-SAFE-901" style="width:100%;">
+                </div>
+
+                <div style="margin-bottom:20px;">
+                    <label style="font-size:12px; font-weight:600; display:block; margin-bottom:4px;">Secret Device API Key</label>
+                    <input type="text" id="sim-api-key" value="safeher_live_key_901" style="width:100%;">
+                </div>
+
+                <h3 style="font-size:16px; margin-bottom:14px;">2. Trigger Sensor Events</h3>
+                <div style="display:flex; flex-direction:column; gap:10px;">
+                    <button class="btn btn-danger" onclick="triggerWearableSimulation('sos')" style="padding:12px; font-size:14px;">
+                        🚨 Simulate Physical Wearable SOS Button Press
+                    </button>
+                    <button class="btn btn-primary" onclick="triggerWearableSimulation('fall')" style="padding:12px; font-size:14px; background:#f97316;">
+                        💥 Simulate Accelerometer Fall Detection Sensor
+                    </button>
+                    <button class="btn btn-secondary" onclick="triggerWearableSimulation('phone-lost')" style="padding:12px; font-size:14px;">
+                        📴 Simulate Phone Snapped / Disconnected Alert
+                    </button>
+                    <button class="btn btn-outline" onclick="triggerWearableSimulation('low-battery')" style="padding:12px; font-size:14px;">
+                        🪫 Simulate Low Battery Telemetry (&lt;15%)
+                    </button>
+                    <button id="btn-moving-gps" class="btn btn-success" onclick="startMovingGPSSimulator()" style="padding:12px; font-size:14px; background:#10b981; color:#fff;">
+                        🚶 Start Live Moving GPS Walker
+                    </button>
+                </div>
+
+                <!-- Active Alert Feedback -->
+                <div id="sim-active-alert-box" style="display:none; margin-top:20px; background:#fef2f2; border:1px solid #f87171; border-radius:var(--radius-sm); padding:12px; text-align:center;">
+                    <strong style="color:#ef4444;">ACTIVE ALERT FIRED:</strong> <span id="sim-alert-id"></span><br>
+                    <a id="sim-track-btn" href="#" target="_blank" class="btn btn-danger" style="margin-top:8px; font-size:11px; padding:6px 12px;">
+                        Open Public Tracking Map ↗
+                    </a>
+                </div>
+            </div>
+
+            <!-- Terminal / Packet Log -->
+            <div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                    <h3 style="font-size:16px;">Telemetry Packet Terminal</h3>
+                    <span style="font-size:11px; color:var(--text-muted);">Real-time Hardware Signals</span>
+                </div>
+                <div id="simulator-console" class="console-box">
+                    <div style="color:#10b981;">[SYSTEM READY] SafeHer Hardware Virtual Testbench initialized.</div>
+                    <div style="color:#94a3b8;">Listening for sensor triggers on POST /api/device/alert...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/socket-client.js"></script>
+    <script src="/js/simulator.js"></script>
+</body>
+</html>

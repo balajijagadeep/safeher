@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Register – SafeHer</title>
+    <link rel="stylesheet" href="/css/theme.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <style>
+        .auth-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: radial-gradient(circle at 10% 20%, #ede9fe, var(--bg-main) 70%);
+        }
+        .auth-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: var(--shadow-lg);
+        }
+        .demo-pill-btn {
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-full);
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+        .demo-pill-btn:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-wrapper">
+        <div class="auth-card">
+            <!-- Brand -->
+            <div style="text-align:center; margin-bottom:24px;">
+                <div class="brand-icon" style="margin:0 auto 12px; width:48px; height:48px; font-size:24px;">🛡️</div>
+                <h2 style="font-size:22px; font-weight:700;">SafeHer Platform</h2>
+                <p style="font-size:13px; color:var(--text-muted); margin-top:4px;">Secure Women Safety & Emergency Dispatch</p>
+            </div>
+
+            <!-- Demo Account Fast Selection Bar -->
+            <div style="background:var(--primary-light); padding:10px; border-radius:var(--radius-sm); margin-bottom:20px;">
+                <div style="font-size:11px; font-weight:700; color:var(--primary); margin-bottom:6px;">⚡ HACKATHON DEMO FAST-FILL:</div>
+                <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                    <button class="demo-pill-btn" onclick="quickFillDemo('user')">👤 User</button>
+                    <button class="demo-pill-btn" onclick="quickFillDemo('contact')">👨‍👩‍👧 Contact</button>
+                    <button class="demo-pill-btn" onclick="quickFillDemo('police')">👮 Police</button>
+                    <button class="demo-pill-btn" onclick="quickFillDemo('hospital')">🏥 Hospital</button>
+                </div>
+            </div>
+
+            <!-- Login Box -->
+            <div id="login-box">
+                <form id="login-form">
+                    <div style="margin-bottom:14px;">
+                        <label style="display:block; font-size:13px; font-weight:600; margin-bottom:6px;">Email Address</label>
+                        <input type="email" id="login-email" required placeholder="user@safeher.org" style="width:100%;">
+                    </div>
+                    <div style="margin-bottom:20px;">
+                        <label style="display:block; font-size:13px; font-weight:600; margin-bottom:6px;">Password</label>
+                        <input type="password" id="login-password" required placeholder="••••••••" style="width:100%;">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%; padding:12px;">
+                        Sign In to SafeHer
+                    </button>
+                </form>
+                <div style="text-align:center; margin-top:18px; font-size:13px; color:var(--text-secondary);">
+                    Don't have an account? <a href="#" onclick="toggleAuthMode('register')">Register here</a>
+                </div>
+            </div>
+
+            <!-- Register Box -->
+            <div id="register-box" style="display:none;">
+                <form id="register-form">
+                    <div style="margin-bottom:12px;">
+                        <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px;">Full Name</label>
+                        <input type="text" id="reg-name" required placeholder="Ananya Sharma" style="width:100%;">
+                    </div>
+                    <div style="margin-bottom:12px;">
+                        <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px;">Email</label>
+                        <input type="email" id="reg-email" required placeholder="ananya@example.com" style="width:100%;">
+                    </div>
+                    <div style="margin-bottom:12px;">
+                        <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px;">Phone Number</label>
+                        <input type="tel" id="reg-phone" required placeholder="+91 98765 43210" style="width:100%;">
+                    </div>
+                    <div style="margin-bottom:12px;">
+                        <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px;">Password</label>
+                        <input type="password" id="reg-password" required placeholder="Create secure password" style="width:100%;">
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
+                        <div>
+                            <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px;">Home City</label>
+                            <input type="text" id="reg-city" placeholder="Hyderabad" style="width:100%;">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px;">Blood Group</label>
+                            <select id="reg-blood" style="width:100%;">
+                                <option>O+</option><option>O-</option>
+                                <option>A+</option><option>A-</option>
+                                <option>B+</option><option>B-</option>
+                                <option>AB+</option><option>AB-</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="margin-bottom:16px;">
+                        <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px;">Allergies / Medical Notes</label>
+                        <input type="text" id="reg-allergies" placeholder="Penicillin allergy, Asthma inhaler" style="width:100%;">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%; padding:12px;">
+                        Create Account
+                    </button>
+                </form>
+                <div style="text-align:center; margin-top:18px; font-size:13px; color:var(--text-secondary);">
+                    Already registered? <a href="#" onclick="toggleAuthMode('login')">Sign In</a>
+                </div>
+            </div>
+
+            <div style="text-align:center; margin-top:20px; font-size:12px;">
+                <a href="/">← Return to Landing Page</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+</body>
+</html>

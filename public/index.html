@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeHer – AI Women Safety & Safe Travel Web Application</title>
+    <link rel="stylesheet" href="/css/theme.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+    <style>
+        .hero-section {
+            background: radial-gradient(circle at 80% 20%, #ede9fe, var(--bg-main) 65%);
+            padding: 80px 20px 60px;
+            text-align: center;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: var(--radius-full);
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+        .hero-title {
+            font-size: 46px;
+            font-weight: 800;
+            line-height: 1.2;
+            max-width: 840px;
+            margin: 0 auto 20px;
+            letter-spacing: -1px;
+        }
+        .hero-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 660px;
+            margin: 0 auto 36px;
+        }
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+        .step-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            text-align: center;
+        }
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background: var(--primary);
+            color: white;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+        .stats-strip {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 40px 20px;
+            border-radius: var(--radius-lg);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            text-align: center;
+            margin: 60px 0;
+        }
+        .stat-val {
+            font-size: 36px;
+            font-weight: 800;
+        }
+        .stat-lbl {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <header class="top-navbar">
+        <div class="brand" style="border:none; margin:0; padding:0;">
+            <div class="brand-icon">🛡️</div>
+            <div class="brand-text">
+                <h1>SafeHer</h1>
+                <p>AI Safety Platform</p>
+            </div>
+        </div>
+        <div style="display:flex; gap:12px; align-items:center;">
+            <a href="/simulator.html" class="btn btn-outline" style="font-size:13px;">⚡ IoT Simulator</a>
+            <a href="/responder.html" class="btn btn-outline" style="font-size:13px;">🚨 Responder Portal</a>
+            <a href="/auth.html" class="btn btn-primary" style="font-size:13px;">Login / Register</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <span class="hero-badge">✨ Innovative AI & IoT Safety Intermediary</span>
+            <h1 class="hero-title">Safety that works even without your phone.</h1>
+            <p class="hero-subtitle">
+                An intelligent bridge connecting you, your wearable IoT jewelry or smartband, and verified emergency responders. Never travel alone again.
+            </p>
+            <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
+                <a href="/auth.html" class="btn btn-primary" style="padding:14px 28px; font-size:16px;">
+                    🛡️ Get Started Free
+                </a>
+                <a href="/simulator.html" class="btn btn-secondary" style="padding:14px 28px; font-size:16px;">
+                    ⚡ Open Judge Demo Simulator
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Problem & Solution -->
+    <section class="container" style="padding: 60px 20px;">
+        <div style="text-align:center; max-width:700px; margin:0 auto 40px;">
+            <span class="badge badge-danger">THE CRITICAL REALITY</span>
+            <h2 style="font-size:32px; font-weight:700; margin-top:8px;">Why Existing Apps Fall Short</h2>
+            <p style="color:var(--text-secondary); margin-top:8px;">
+                Traditional apps require you to unlock your phone, open an app, and tap a screen. In real crisis moments, phones are snatched, lost, or inaccessible.
+            </p>
+        </div>
+
+        <div class="cards-grid">
+            <div class="feature-card">
+                <div class="card-header">
+                    <div class="card-icon" style="background:#fee2e2; color:#ef4444;">📱</div>
+                    <div>
+                        <h4 class="card-title">Phone Snatched or Inaccessible</h4>
+                        <p class="card-desc">If your phone is switched off or in a bag, you cannot make a call.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="card-header">
+                    <div class="card-icon" style="background:#fef3c7; color:#f59e0b;">🌃</div>
+                    <div>
+                        <h4 class="card-title">Unfamiliar Night Travel</h4>
+                        <p class="card-desc">Visitors don't know which streets are dark, isolated, or have history of harassment.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-card">
+                <div class="card-header">
+                    <div class="card-icon" style="background:#ede9fe; color:#7c3aed;">⏳</div>
+                    <div>
+                        <h4 class="card-title">Delayed Emergency Escalation</h4>
+                        <p class="card-desc">If family members miss an SMS at 2 AM, the alert dies without reaching police dispatch.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How SafeHer Works: 4 Illustrated Steps -->
+    <section style="background:var(--bg-card); border-top:1px solid var(--border-color); border-bottom:1px solid var(--border-color); padding:60px 20px;">
+        <div class="container">
+            <div style="text-align:center; margin-bottom:40px;">
+                <span class="badge badge-info">HOW IT WORKS</span>
+                <h2 style="font-size:32px; font-weight:700; margin-top:8px;">Continuous Protection in 4 Steps</h2>
+            </div>
+
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3 style="font-size:16px; margin-bottom:8px;">Wear the Device</h3>
+                    <p style="font-size:13px; color:var(--text-secondary);">Pair smart pendant, earring, or band with zero-setup secret API key.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3 style="font-size:16px; margin-bottom:8px;">Share Live Trip</h3>
+                    <p style="font-size:13px; color:var(--text-secondary);">Send secure, expiring tracking link to family without requiring them to install an app.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3 style="font-size:16px; margin-bottom:8px;">Press SOS / Fall</h3>
+                    <p style="font-size:13px; color:var(--text-secondary);">Discreet single button tap, shake, or fall detection triggers autonomous alert.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3 style="font-size:16px; margin-bottom:8px;">Multi-Tier Help Arrives</h3>
+                    <p style="font-size:13px; color:var(--text-secondary);">Auto-escalates from Family $\rightarrow$ Police $\rightarrow$ Hospital with GPS & audio evidence.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats & Impact -->
+    <div class="container">
+        <div class="stats-strip">
+            <div>
+                <div class="stat-val">&lt; 3 sec</div>
+                <div class="stat-lbl">Wearable Signal Latency</div>
+            </div>
+            <div>
+                <div class="stat-val">3-Tier</div>
+                <div class="stat-lbl">Smart Alert Escalation</div>
+            </div>
+            <div>
+                <div class="stat-val">100%</div>
+                <div class="stat-lbl">Free Open Maps & Heuristics</div>
+            </div>
+            <div>
+                <div class="stat-val">Zero-App</div>
+                <div class="stat-lbl">Recipient Tracking Experience</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Helplines Footer -->
+    <footer style="background:#0f172a; color:#cbd5e1; padding:50px 20px 30px; border-top:1px solid #1e293b;">
+        <div class="container">
+            <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:30px; margin-bottom:40px;">
+                <div style="max-width:320px;">
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+                        <span style="font-size:24px;">🛡️</span>
+                        <strong style="font-size:20px; color:#fff;">SafeHer</strong>
+                    </div>
+                    <p style="font-size:13px; color:#94a3b8;">
+                        Innovating women safety & safe travel through AI area risk heuristics and autonomous wearable IoT technology.
+                    </p>
+                </div>
+                <div>
+                    <h4 style="color:#fff; margin-bottom:12px; font-size:14px;">National Emergency Helplines (India)</h4>
+                    <ul style="list-style:none; font-size:13px; display:flex; flex-direction:column; gap:8px;">
+                        <li>🚨 <strong>Police & ERSS:</strong> <a href="tel:112" style="color:#f87171;">112</a></li>
+                        <li>👩 <strong>National Women Helpline:</strong> <a href="tel:1091" style="color:#f87171;">1091</a></li>
+                        <li>🚑 <strong>Emergency Ambulance:</strong> <a href="tel:108" style="color:#f87171;">108</a></li>
+                        <li>👮‍♀️ <strong>She Teams / Anti-Harassment:</strong> <a href="tel:100" style="color:#f87171;">100</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align:center; font-size:12px; color:#64748b; border-top:1px solid #1e293b; padding-top:20px;">
+                © SafeHer AI Women Safety Project • Built for College Hackathon
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

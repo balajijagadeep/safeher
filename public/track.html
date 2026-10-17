@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Location Tracker – SafeHer</title>
+    <link rel="stylesheet" href="/css/theme.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        #live-map {
+            flex: 1;
+            width: 100%;
+            z-index: 1;
+        }
+        .tracker-header {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+            z-index: 10;
+        }
+        .telemetry-bar {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-around;
+            font-size: 13px;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="tracker-header">
+        <div style="display:flex; align-items:center; gap:12px;">
+            <div class="brand-icon" style="width:36px; height:36px; font-size:18px;">🛡️</div>
+            <div>
+                <h2 id="victim-name" style="font-size:16px; font-weight:700;">Loading Live Location...</h2>
+                <div id="trip-destination" style="font-size:12px; color:var(--text-muted);">Please wait...</div>
+            </div>
+        </div>
+        <span id="tracking-status-badge" class="badge badge-warning">CONNECTING...</span>
+    </header>
+
+    <!-- Leaflet Real-time Map -->
+    <div id="live-map"></div>
+
+    <!-- Telemetry Status Bar -->
+    <footer class="telemetry-bar">
+        <div id="speed-status">Speed: -- km/h</div>
+        <div id="battery-status">Battery: --%</div>
+        <div style="color:var(--primary); font-weight:600;">⚡ Real-time Telemetry</div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/socket-client.js"></script>
+    <script src="/js/track.js"></script>
+</body>
+</html>
